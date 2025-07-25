@@ -1,1 +1,26 @@
-This is the snake readme. The readme for the snake game. It is a snake game. You play as a snake which eats apples. I too like apples. Eating apples makes the snake longer by a small margin. That goes on forever as the snake is punished by me, to stay in purgatory forever. But hey atleast it has cool hats
+# 🐍 Snake Game README
+
+Welcome to the **Snake Game**.  
+Yes, it's *that* snake game.
+
+## 🎮 Gameplay
+
+- You play as a **snake**.
+- Your job is to **eat apples**.
+- **I like apples too.**
+- Eating apples makes your snake **slightly longer**.
+- This continues **forever**.
+- The snake is **cursed** by me, the developer, to **remain in purgatory** for eternity.
+
+## 🧢 Features
+
+- Endless, soul-crushing gameplay.
+- Apples.
+- **Cool hats.**
+
+## 🪦 Final Thoughts
+
+The snake will never escape.  
+But at least it looks stylish.
+
+---
