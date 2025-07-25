@@ -1,0 +1,1 @@
+This is the snake readme. The readme for the snake game. It is a snake game. You play as a snake which eats apples. I too like apples. Eating apples makes the snake longer by a small margin. That goes on forever as the snake is punished by me, to stay in purgatory forever. But hey atleast it has cool hats
