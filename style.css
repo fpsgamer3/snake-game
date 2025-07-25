@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    background: #2ba335; /* grass green */
+    color: #fff;
+    font-family: 'Press Start 2P', Arial, sans-serif;
+}
+
+h1 {
+    margin-bottom: 20px;
+    font-family: 'Press Start 2P', Arial, sans-serif;
+}
+
+#gameCanvas {
+    background: #388E3C;
+    border: 2px solid #fff;
+    border-radius: 12px;
+}
+
+.game-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #388E3C; /* darker green for game box */
+    border-radius: 18px;
+    box-shadow: 0 0 24px 0 rgba(0,0,0,0.2);
+    padding: 24px 24px 12px 24px;
+}
+
+#scoreDisplay {
+    font-family: 'Press Start 2P', Arial, sans-serif;
+    font-size: 18px;
+    color: #fff;
+    margin-bottom: 10px;
+    text-align: center;
+} 
