@@ -25,25 +25,22 @@ let menuButtons = [
 let showGameOverScreen = false;
 let restartButton = { x: 180, y: 340, w: 240, h: 60, hover: false };
 
-// Update score display above canvas
+
 function updateScoreDisplay() {
     const scoreDiv = document.getElementById('scoreDisplay');
     if (scoreDiv) scoreDiv.textContent = 'Score: ' + score;
 }
 
 function drawMenu() {
-    // Background
     const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
     gradient.addColorStop(0, '#232526');
     gradient.addColorStop(1, '#414345');
     ctx.fillStyle = gradient;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
-    // Title
     ctx.fillStyle = '#fff';
     ctx.font = '20px "Press Start 2P", Arial, sans-serif';
     ctx.textAlign = 'center';
     ctx.fillText('Choose Difficulty', canvas.width/2, 140);
-    // Draw buttons
     menuButtons.forEach(btn => {
         ctx.save();
         ctx.beginPath();
@@ -65,13 +62,11 @@ function drawMenu() {
 }
 
 function drawGameOverScreen() {
-    // Overlay
     ctx.save();
     ctx.globalAlpha = 0.85;
     ctx.fillStyle = '#232526';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     ctx.globalAlpha = 1;
-    // Popup
     ctx.fillStyle = '#222';
     ctx.strokeStyle = '#fff';
     ctx.lineWidth = 4;
@@ -79,17 +74,13 @@ function drawGameOverScreen() {
     ctx.roundRect(100, 150, 400, 300, 24);
     ctx.fill();
     ctx.stroke();
-    // Game Over text
     ctx.fillStyle = '#fff';
     ctx.font = '24px "Press Start 2P", Arial, sans-serif';
     ctx.textAlign = 'center';
     ctx.fillText('GAME OVER', canvas.width/2, 200);
-    // Score
     ctx.font = '16px "Press Start 2P", Arial, sans-serif';
     ctx.fillText('Score: ' + score, canvas.width/2, 240);
-    // Draw dead snake head
     drawDeadSnakeHead(canvas.width/2, 280);
-    // Restart button
     ctx.save();
     ctx.beginPath();
     ctx.roundRect(restartButton.x, restartButton.y, restartButton.w, restartButton.h, 12);
@@ -111,29 +102,24 @@ function drawGameOverScreen() {
 function drawDeadSnakeHead(x, y) {
     ctx.save();
     ctx.translate(x, y);
-    // Head as a square (like snake segment)
     ctx.beginPath();
     ctx.rect(-30, -30, 60, 60);
     ctx.fillStyle = '#2196F3';
     ctx.fill();
-    // Crossed eyes
     ctx.strokeStyle = '#222';
     ctx.lineWidth = 3;
-    // Left eye X
     ctx.beginPath();
     ctx.moveTo(-15, -10);
     ctx.lineTo(-5, 0);
     ctx.moveTo(-5, -10);
     ctx.lineTo(-15, 0);
     ctx.stroke();
-    // Right eye X
     ctx.beginPath();
     ctx.moveTo(5, -10);
     ctx.lineTo(15, 0);
     ctx.moveTo(15, -10);
     ctx.lineTo(5, 0);
     ctx.stroke();
-    // Mouth (flat)
     ctx.beginPath();
     ctx.moveTo(-10, 18);
     ctx.lineTo(10, 18);
@@ -151,14 +137,12 @@ function draw() {
         drawGameOverScreen();
         return;
     }
-    // Gradient background
     const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
     gradient.addColorStop(0, '#232526');
     gradient.addColorStop(1, '#414345');
     ctx.fillStyle = gradient;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    // Draw subtle grid
     ctx.save();
     ctx.strokeStyle = 'rgba(255,255,255,0.07)';
     ctx.lineWidth = 1;
@@ -176,23 +160,19 @@ function draw() {
     }
     ctx.restore();
 
-    // Draw food as an apple
     const appleX = food.x * gridSize + gridSize / 2;
     const appleY = food.y * gridSize + gridSize / 2;
     const appleRadius = (gridSize - 6) / 2;
-    // Apple body
     ctx.beginPath();
     ctx.arc(appleX, appleY, appleRadius, 0, Math.PI * 2);
     ctx.fillStyle = 'red';
     ctx.fill();
-    // Apple stem
     ctx.beginPath();
     ctx.strokeStyle = 'green';
     ctx.lineWidth = 3;
     ctx.moveTo(appleX, appleY - appleRadius);
     ctx.lineTo(appleX, appleY - appleRadius - 7);
     ctx.stroke();
-    // Apple leaf
     ctx.beginPath();
     ctx.strokeStyle = '#4caf50';
     ctx.lineWidth = 2;
@@ -200,7 +180,6 @@ function draw() {
     ctx.lineTo(appleX + 5, appleY - appleRadius - 10);
     ctx.stroke();
 
-    // Draw snake
     ctx.fillStyle = '#2196F3'; // blue
     const segmentSpacing = 2; // space between segments
     const segmentSize = gridSize - segmentSpacing;
@@ -216,32 +195,26 @@ function draw() {
         ctx.fill();
     });
 
-    // Draw face on the head
     const head = snake[0];
     const headX = head.x * gridSize + gridSize / 2;
     const headY = head.y * gridSize + gridSize / 2;
     ctx.save();
     ctx.translate(headX, headY);
-    // Determine rotation angle based on direction
     let angle = 0;
     if (direction.x === 1 && direction.y === 0) angle = 0; // right
     else if (direction.x === -1 && direction.y === 0) angle = Math.PI; // left
     else if (direction.x === 0 && direction.y === -1) angle = -Math.PI / 2; // up
     else if (direction.x === 0 && direction.y === 1) angle = Math.PI / 2; // down
     ctx.rotate(angle);
-    // Eyes
     ctx.beginPath();
     ctx.arc(-5, -3, 2, 0, Math.PI * 2);
     ctx.arc(5, -3, 2, 0, Math.PI * 2);
     ctx.fillStyle = '#222';
     ctx.fill();
-    // Mouth
     ctx.beginPath();
     if (showHappyFace) {
-        // Happy mouth
         ctx.arc(0, 3, 5, 0, Math.PI, false);
     } else {
-        // Dull mouth (flat)
         ctx.moveTo(-4, 6);
         ctx.lineTo(4, 6);
     }
@@ -255,16 +228,13 @@ function draw() {
 function update() {
     if (gameOver) return;
 
-    // Move snake
     let head = { x: snake[0].x + direction.x, y: snake[0].y + direction.y };
 
-    // Wrap around the edges
     if (head.x < 0) head.x = tileCount - 1;
     if (head.x >= tileCount) head.x = 0;
     if (head.y < 0) head.y = tileCount - 1;
     if (head.y >= tileCount) head.y = 0;
 
-    // Check self collision
     for (let segment of snake) {
         if (head.x === segment.x && head.y === segment.y) {
             gameOver = true;
@@ -281,7 +251,6 @@ function update() {
         score++;
         updateScoreDisplay();
         placeFood();
-        // Show happy face for 400ms
         showHappyFace = true;
         if (happyFaceTimeout) clearTimeout(happyFaceTimeout);
         happyFaceTimeout = setTimeout(() => {
@@ -297,7 +266,6 @@ function placeFood() {
         x: Math.floor(Math.random() * tileCount),
         y: Math.floor(Math.random() * tileCount)
     };
-    // Make sure food doesn't spawn on the snake
     for (let segment of snake) {
         if (food.x === segment.x && food.y === segment.y) {
             placeFood();
@@ -314,7 +282,6 @@ function gameLoop() {
     }
 }
 
-// Menu logic
 canvas.addEventListener('mousemove', function(e) {
     if (!menuActive) return;
     const rect = canvas.getBoundingClientRect();
@@ -343,7 +310,6 @@ canvas.addEventListener('mousedown', function(e) {
     });
 });
 
-// Game Over screen mouse logic
 canvas.addEventListener('mousemove', function(e) {
     if (showGameOverScreen) {
         const rect = canvas.getBoundingClientRect();
